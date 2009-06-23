@@ -1,0 +1,61 @@
+
+!urxvt.termName:  rxvt-256color
+urxvt.loginShell:         true
+urxvt.scrollBar:         false
+urxvt.secondaryScroll:    true
+urxvt.saveLines:         65535
+urxvt.cursorBlink:       false
+urxvt.urgentOnBell:       true
+!urxvt.borderLess:         true
+!!urxvt.borderWidth:          1
+!!urxvt.internalBorder:       0
+!!
+!! Extensions
+urxvt*perl-lib:         /usr/lib/urxvt/perl/
+urxvt*perl-ext-common:  default,matcher,searchable-scrollback
+urxvt*urlLauncher:      /usr/local/bin/firefox
+urxvt*matcher.button:   1
+! So we catch even nasty URLs
+urxvt.cutchars:         `()'*<>[]{|}"
+URxvt*cutchars:         `"()'*<>[]{|}
+!
+! Appearance
+!urxvt.font:     terminus-medium-*-*-*-12-*-*-*-*-*-*-*
+!urxvt.boldFont: terminus-bold-*-*-*-12-*-*-*-*-*-*-*
+!
+! Cursor
+urxvt.cursorColor: #DCDCCC
+!
+! Pseudo Transparency
+!urxvt.shading:     30
+!urxvt.transparent: false
+!! 
+! Zenburn color-scheme
+urxvt*background:  #333333
+urxvt*foreground:  #dddddd
+! black + red
+!urxvt*color0:     #3f3f3f
+urxvt*color0:      #113322
+urxvt*color1:      #884444
+! green + yellow
+urxvt*color2:      #55cc77
+urxvt*color3:      #ee9977
+! blue + purple
+urxvt*color4:      #445588
+urxvt*color5:      #ee77bb
+! cyan + white
+urxvt*color6:      #77ccee
+urxvt*color7:      #dddddd
+! bright-black + bright-red
+urxvt*color8:      #66aa77
+urxvt*color9:      #ee9999
+! bright-green + bright-yellow
+urxvt*color10:     #ddaa88
+urxvt*color11:     #ffcc99
+! bright-blue + bright-purple
+urxvt*color12:     #88aaff
+urxvt*color13:     #ff88cc
+! bright-cyan + bright-white
+urxvt*color14:     #88eeff
+urxvt*color15:     #ffffff
+
