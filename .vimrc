@@ -7,3 +7,4 @@ set cursorline
 set hlsearch
 set incsearch
 set tabstop=4
+set background=dark

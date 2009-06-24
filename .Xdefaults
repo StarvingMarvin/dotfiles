@@ -20,8 +20,8 @@ urxvt.cutchars:         `()'*<>[]{|}"
 URxvt*cutchars:         `"()'*<>[]{|}
 !
 ! Appearance
-!urxvt.font:     terminus-medium-*-*-*-12-*-*-*-*-*-*-*
-!urxvt.boldFont: terminus-bold-*-*-*-12-*-*-*-*-*-*-*
+urxvt.font:    -*-terminus-medium-*-*-*-14-*-*-*-*-*-*-*
+urxvt.boldFont: -*-terminus-bold-*-*-*-14-*-*-*-*-*-*-*
 !
 ! Cursor
 urxvt.cursorColor: #DCDCCC
@@ -32,30 +32,30 @@ urxvt.cursorColor: #DCDCCC
 !! 
 ! Zenburn color-scheme
 urxvt*background:  #333333
-urxvt*foreground:  #dddddd
+urxvt*foreground:  #ddddcc
 ! black + red
 !urxvt*color0:     #3f3f3f
 urxvt*color0:      #113322
 urxvt*color1:      #884444
 ! green + yellow
 urxvt*color2:      #55cc77
-urxvt*color3:      #ee9977
+urxvt*color3:      #ffbb77
 ! blue + purple
 urxvt*color4:      #445588
 urxvt*color5:      #ee77bb
 ! cyan + white
 urxvt*color6:      #77ccee
-urxvt*color7:      #dddddd
+urxvt*color7:      #ddddcc
 ! bright-black + bright-red
 urxvt*color8:      #66aa77
 urxvt*color9:      #ee9999
 ! bright-green + bright-yellow
-urxvt*color10:     #ddaa88
-urxvt*color11:     #ffcc99
+urxvt*color10:     #aadd88
+urxvt*color11:     #ffdd88
 ! bright-blue + bright-purple
 urxvt*color12:     #88aaff
 urxvt*color13:     #ff88cc
 ! bright-cyan + bright-white
 urxvt*color14:     #88eeff
-urxvt*color15:     #ffffff
+urxvt*color15:     #ffffee
 

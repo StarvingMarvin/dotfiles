@@ -146,10 +146,7 @@ $PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_NO_COLOUR '
 }
 
 setprompt
-JRUBY_HOME="/opt/netbeans-6.5/ruby2/jruby-1.1.4"
-PATH="${PATH}:~/bin:/${JRUBY_HOME}/bin/:${JRUBY_HOME}/lib/ruby/gems/1.8/gems/rawr-1.3.3/bin/"
-
-export GPGKEY=09B690DC
+PATH="${PATH}:~/bin"
 
 GPG_TTY='tty'
 export GPG_TTY
@@ -163,7 +160,6 @@ echo
 # # --------------------------------------------------------------------
 
 ## Command aliases
-alias grep="grep --color=auto"                        # color grep output
 alias ls="ls --color"            # list, color, human readable
 #alias diff="colordiff"           # pretty colors...
 alias untar="tar xzf"           # for tarballs
