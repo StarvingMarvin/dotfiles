@@ -1,4 +1,3 @@
-
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -30,7 +29,6 @@ positioning = composeAll
     [ className =? "Firefox"     --> (doShift $ getWorkspace "web")
     , className =? "KCalc"       --> (doShift $ getWorkspace "float")
     , className =? "KCalc"       --> doFloat
-   -- , className =? "CGoban"     --> doFloat
     ]
 
 -- tabbed shrinkText (theme smallClean)
@@ -40,6 +38,7 @@ myLayouts = onWorkspace (getWorkspace "term")  (avoidStruts $ simpleTabbed)
 
 myWorkspaces = ["term", "web", "dev", "file", "doc", "float"]
 
+-- if there is less then 9 workspaces, they will be filled with ""
 enumeratedWorkspaces = 
     zip (myWorkspaces ++ empty) [1..9]
     where
@@ -50,6 +49,7 @@ showWorkspace (name, id) = show id ++ ":" ++ name
 showWorkspaces = 
     map showWorkspace enumeratedWorkspaces
 
+-- returns string "id:name" if there is workspace with given name, "0:name" otherwise
 getWorkspace name = showWorkspace ws
     where ws = (name, fromMaybe 0 $ lookup name enumeratedWorkspaces)
 
@@ -71,7 +71,6 @@ main = do
     
     xmonad $ defaultConfig
         { manageHook         = positioning <+> manageDocks <+> manageHook defaultConfig
--- avoidStruts  $  layoutHook defaultConfig
         , layoutHook         = avoidStruts $ layoutHook defaultConfig
         , logHook            = dynamicLogWithPP $ xmobarPP
             { ppOutput       = hPutStrLn xmproc
