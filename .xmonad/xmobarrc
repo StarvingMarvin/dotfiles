@@ -6,10 +6,12 @@ Config { font = "-*-terminus-bold-*-*-*-12-*-*-*-*-*-*-*"
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
                     , Run Date "%a, %_d %b %l:%M" "date" 10
+                    , Run Thermal "THM0" ["-H", "60", "-L", "35", "--low", "green", "--high", "red"] 10
+                    , Run Battery ["-H","95","-L","20", "--low", "red", "--high", "blue", "--normal", "green"] 6
                     , Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %cpu% | %memory% * %swap%    <fc=#ee9900>%date%</fc>"
+       , template = "%StdinReader% }{ %battery% | %THM0% | %cpu% | %memory% * %swap%    <fc=#ee9900>%date%</fc>"
        }
 

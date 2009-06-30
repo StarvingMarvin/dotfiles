@@ -27,8 +27,8 @@ urxvt.boldFont: -*-terminus-bold-*-*-*-14-*-*-*-*-*-*-*
 urxvt.cursorColor: #DCDCCC
 !
 ! Pseudo Transparency
-!urxvt.shading:     30
-!urxvt.transparent: false
+urxvt.shading:     30
+urxvt.transparent: true
 !! 
 ! Zenburn color-scheme
 urxvt*background:  #333333
