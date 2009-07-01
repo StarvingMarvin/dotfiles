@@ -16,22 +16,24 @@ import System.IO
 
 shortcuts = 
     [ ("M-x f", spawn "firefox")
+    , ("M-x c", spawn "kcalc")
+    , ("M-x d", spawn "dolphin")
+    , ("M-x v", spawn "urxvt -e vim")
     ]
 
 positioning = composeAll
     [ className =? "Firefox"     --> (doShift $ getWorkspace "web")
     , appName   =? "kcalc"       --> (doShift $ getWorkspace "float")
-    , appName =? "kcalc"       --> doFloat
+    , appName   =? "kcalc"       --> doFloat
     ]
 
--- tabbed shrinkText (theme smallClean)(decoration shrinkText defaultTheme Tabbed Simplest)
-myLayouts = onWorkspace (getWorkspace "term") tabs 
-            $ onWorkspace (getWorkspace "float")  simpleFloat
-            $ onWorkspace (getWorkspace "dev") (dev ||| (avoidStruts Full))
+myLayouts =   onWorkspace (getWorkspace "term")     tabs 
+            $ onWorkspace (getWorkspace "float")    simpleFloat
+            $ onWorkspace (getWorkspace "dev")      (dev ||| (avoidStruts Full))
             $ (avoidStruts $ layoutHook defaultConfig )
     where
-        tabs = (layoutHints $ avoidStruts $ tabbed shrinkText defaultTheme)
-        dev = avoidStruts $ Mirror $ ResizableTall 1 (3 % 100) (2 % 3) []
+        tabs    = (layoutHints $ avoidStruts $ tabbed shrinkText defaultTheme)
+        dev     = avoidStruts $ Mirror $ ResizableTall 1 (3 % 100) (2 % 3) []
 
 myWorkspaces = ["term", "web", "dev", "file", "doc", "float"]
 
@@ -53,6 +55,7 @@ getWorkspace name = showWorkspace ws
 
 main = do
     xmproc <- spawnPipe "xmobar /home/luka/.xmonad/xmobarrc"
+
     xmonad $ defaultConfig
         { manageHook         = positioning <+> manageDocks <+> manageHook defaultConfig
         , layoutHook         = myLayouts

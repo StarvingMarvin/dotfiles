@@ -1,0 +1,15 @@
+#!/bin/sh
+
+WALLPAPERS_DIR="$HOME/.wallpapers"
+wallpapers=`ls $WALLPAPERS_DIR`
+
+function rotate {
+    while true ; do
+        for wallpaper in $wallpapers ; do
+            feh --bg-scale $WALLPAPERS_DIR/$wallpaper
+            sleep 600
+        done
+    done
+}
+
+rotate
