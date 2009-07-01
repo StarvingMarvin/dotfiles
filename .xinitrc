@@ -1,3 +1,3 @@
-feh --bg-scale ~/wallpapers/linux_code.jpg
+~/bin/wallpapers &
 exec xmonad 
 

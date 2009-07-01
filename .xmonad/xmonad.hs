@@ -6,35 +6,32 @@ import XMonad.Util.EZConfig(additionalKeysP)
 import XMonad.Layout.Tabbed
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.SimpleFloat
-import XMonad.Util.Themes
+import XMonad.Layout.LayoutHints
+import XMonad.Layout.ResizableTile
+
+import Data.Ratio
 import Data.Maybe
---import XMonad.Prompt
---import XMonad.Prompt.Shell
---import XMonad.Prompt.Ssh
---import XMonad.Prompt.Theme
---import XMonad.Prompt.Window
---import XMonad.Prompt.XMonad
---import XMonad.Prompt.Layout
---import XMonad.Prompt.Man
---import XMonad.Prompt.AppendFile
---import XMonad.Prompt.Input
+
 import System.IO
 
 shortcuts = 
     [ ("M-x f", spawn "firefox")
---	, ("M-s", shellPrompt defaultXPConfig)
-	]
+    ]
 
 positioning = composeAll
     [ className =? "Firefox"     --> (doShift $ getWorkspace "web")
-    , className =? "KCalc"       --> (doShift $ getWorkspace "float")
-    , className =? "KCalc"       --> doFloat
+    , appName   =? "kcalc"       --> (doShift $ getWorkspace "float")
+    , appName =? "kcalc"       --> doFloat
     ]
 
--- tabbed shrinkText (theme smallClean)
-myLayouts = onWorkspace (getWorkspace "term")  (avoidStruts $ simpleTabbed) 
+-- tabbed shrinkText (theme smallClean)(decoration shrinkText defaultTheme Tabbed Simplest)
+myLayouts = onWorkspace (getWorkspace "term") tabs 
             $ onWorkspace (getWorkspace "float")  simpleFloat
+            $ onWorkspace (getWorkspace "dev") (dev ||| (avoidStruts Full))
             $ (avoidStruts $ layoutHook defaultConfig )
+    where
+        tabs = (layoutHints $ avoidStruts $ tabbed shrinkText defaultTheme)
+        dev = avoidStruts $ Mirror $ ResizableTall 1 (3 % 100) (2 % 3) []
 
 myWorkspaces = ["term", "web", "dev", "file", "doc", "float"]
 
@@ -53,25 +50,12 @@ showWorkspaces =
 getWorkspace name = showWorkspace ws
     where ws = (name, fromMaybe 0 $ lookup name enumeratedWorkspaces)
 
---promptConfig = defaultXPConfig
---    { font = "-*-terminus-normal-*-*-*-12-*-*-*-*-*-*-*"
---	, bgColor = "black"
---	, fgColor = "#FFFFFF"
---	, fgHLight = "#3377AA"
---	, bgHLight = "#000000"
---	, borderColor = "#444444"
---	, promptBorderWidth = 1
---	, position = Bottom
---	, height = 16
---	, historySize = 50
---	}
 
 main = do
     xmproc <- spawnPipe "xmobar /home/luka/.xmonad/xmobarrc"
-    
     xmonad $ defaultConfig
         { manageHook         = positioning <+> manageDocks <+> manageHook defaultConfig
-        , layoutHook         = avoidStruts $ layoutHook defaultConfig
+        , layoutHook         = myLayouts
         , logHook            = dynamicLogWithPP $ xmobarPP
             { ppOutput       = hPutStrLn xmproc
             , ppTitle        = xmobarColor "green" "" . shorten 60
