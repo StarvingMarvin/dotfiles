@@ -67,6 +67,7 @@ main = do
         , terminal           = "urxvt"
         , normalBorderColor  = "#cccccc"
         , focusedBorderColor = "#778800" 
+        , modMask = mod4Mask
         } `additionalKeysP` shortcuts
 
 
