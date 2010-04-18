@@ -20,8 +20,8 @@ urxvt.cutchars:         `()'*<>[]{|}"
 URxvt*cutchars:         `"()'*<>[]{|}
 !
 ! Appearance
-urxvt.font:    -*-terminus-medium-*-*-*-14-*-*-*-*-*-*-*
-urxvt.boldFont: -*-terminus-bold-*-*-*-14-*-*-*-*-*-*-*
+#urxvt.font:    -*-terminus-medium-*-*-*-14-*-*-*-*-*-*-*
+#urxvt.boldFont: -*-terminus-bold-*-*-*-14-*-*-*-*-*-*-*
 !
 ! Cursor
 urxvt.cursorColor: #DCDCCC
