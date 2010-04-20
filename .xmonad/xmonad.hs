@@ -1,6 +1,7 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.SetWMName
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeysP)
 import XMonad.Layout.Tabbed
@@ -54,10 +55,11 @@ getWorkspace name = showWorkspace ws
 
 
 main = do
-    xmproc <- spawnPipe "xmobar /home/luka/.xmonad/xmobarrc"
+    xmproc <- spawnPipe "xmobar /home/quantum/.xmonad/xmobarrc"
 
     xmonad $ defaultConfig
         { manageHook         = positioning <+> manageDocks <+> manageHook defaultConfig
+	, startupHook	     = setWMName "LG3D"
         , layoutHook         = myLayouts
         , logHook            = dynamicLogWithPP $ xmobarPP
             { ppOutput       = hPutStrLn xmproc
