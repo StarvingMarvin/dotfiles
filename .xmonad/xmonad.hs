@@ -1,6 +1,7 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.SetWMName
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeysP)
 import XMonad.Layout.Tabbed
@@ -58,6 +59,7 @@ main = do
 
     xmonad $ defaultConfig
         { manageHook         = positioning <+> manageDocks <+> manageHook defaultConfig
+	, startupHook	     = setWMName "LG3D"
         , layoutHook         = myLayouts
         , logHook            = dynamicLogWithPP $ xmobarPP
             { ppOutput       = hPutStrLn xmproc
