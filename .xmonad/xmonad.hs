@@ -55,7 +55,7 @@ getWorkspace name = showWorkspace ws
 
 
 main = do
-    xmproc <- spawnPipe "xmobar /home/luka/.xmonad/xmobarrc"
+    xmproc <- spawnPipe "xmobar /home/quantum/.xmonad/xmobarrc"
 
     xmonad $ defaultConfig
         { manageHook         = positioning <+> manageDocks <+> manageHook defaultConfig
@@ -69,6 +69,7 @@ main = do
         , terminal           = "urxvt"
         , normalBorderColor  = "#cccccc"
         , focusedBorderColor = "#778800" 
+        , modMask = mod4Mask
         } `additionalKeysP` shortcuts
 
 

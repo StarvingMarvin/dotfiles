@@ -1,3 +1,4 @@
-~/bin/wallpapers &
+
+#~/bin/wallpapers &
 exec xmonad 
 
