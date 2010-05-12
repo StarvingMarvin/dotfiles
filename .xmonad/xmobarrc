@@ -1,4 +1,4 @@
-Config { font = "-*-terminus-*-*-*-*-13-*-*-*-*-*-*-*"
+Config { font = "-*-terminus-*-r-*-*-12-*-*-*-*-*-*-*"
        , bgColor = "black"
        , fgColor = "grey"
        , position = TopW L 90
