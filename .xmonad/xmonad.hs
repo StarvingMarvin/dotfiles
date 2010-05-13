@@ -9,6 +9,7 @@ import XMonad.Layout.PerWorkspace
 import XMonad.Layout.SimpleFloat
 import XMonad.Layout.LayoutHints
 import XMonad.Layout.ResizableTile
+import XMonad.Layout.IM
 
 import Data.Ratio
 import Data.Maybe
@@ -41,19 +42,22 @@ positioning = composeAll
     , className     =? "Kmix"           --> doFloat
     , className     =? "Yakuake"        --> doIgnore
     , className     =? "stalonetray"    --> doIgnore
-    , className     =? "Amarok"         --> (doShift $ getWorkspace "mm")
+    , className     =? "Amarok"         --> (doShift $ getWorkspace "misc")
     , className     =? "VirtualBox"     --> (doShift $ getWorkspace "vm")
     ]
 
 myLayouts =   onWorkspace (getWorkspace "term")     tabs
             $ onWorkspace (getWorkspace "float")    simpleFloat
             $ onWorkspace (getWorkspace "dev")      (dev ||| (avoidStruts Full))
-            $ (avoidStruts $ layoutHook defaultConfig )
+            $ onWorkspace (getWorkspace "chat")     imLayout 
+            $ def
     where
+        def     = (avoidStruts $ layoutHook defaultConfig )
         tabs    = (layoutHints $ avoidStruts $ tabbed shrinkText defaultTheme)
         dev     = avoidStruts $ Mirror $ ResizableTall 1 (3 % 100) (2 % 3) []
+        imLayout = avoidStruts $ withIM (1 % 6) (Role "psimain") def
 
-myWorkspaces = ["term", "web", "dev", "file", "doc", "mm", "web2", "vm", "float"]
+myWorkspaces = ["term", "web", "dev", "file", "chat", "misc", "web2", "vm", "float"]
 
 -- if there is less then 9 workspaces, they will be filled with ""
 enumeratedWorkspaces = 
