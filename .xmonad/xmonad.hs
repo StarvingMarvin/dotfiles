@@ -17,35 +17,35 @@ import Data.List
 
 import System.IO
 
-shortcuts = 
-    [ ("M-x f", spawn "firefox")
-    , ("M-x c", spawn "kcalc")
-    , ("M-x d", spawn "dolphin")
-    , ("M-x v", spawn "konsole -e vim")
-    , ("M-x o", spawn "opera")
-    , ("M-x g", spawn "chromium-browser")
-    , ("M-x n", spawn "/opt/netbeans-6.8/bin/netbeans")
-    , ("M-x k", spawn "krusader")
-    , ("M-x p", spawn "psi")
-    , ("M-x a", spawn "amarok")
-    ]
+shortcuts = spawnShortcuts 
 
+myApps = ["&firefox", "k&calc", "&dolphin", "konsole -e &vim", "&opera", 
+          "c&hromium-browser", "/opt/&netbeans-6.8/bin/netbeans", "&krusader",
+          "&psi", "&amarok", "oo&writer", "k&3b", "&gimp", "&inkscape",
+          "Virtual&Box"]
+
+marker m l = _marker m l [] where
+    _marker m (x:xs) acc | m == x       = ([head xs], acc ++ xs)
+                         | otherwise    = _marker m xs $ acc ++ [x]
+
+spawnShortcuts = [(_spawn . marker '&') x | x <- myApps] where
+    _spawn (m, app) = ("M-x " ++ m, spawn app)
+
+-- TODO: make pretty
 positioning = composeAll
     [ className     =? "Firefox"        --> (doShift $ getWorkspace "web2")
     , className     =? "Opera"          --> (doShift $ getWorkspace "web")
     , className     =? "Krusader"       --> (doShift $ getWorkspace "file")
+    , className     =? "Kcalc"          --> doFloat
+    , className     =? "Kmix"           --> doFloat
+    , className     =? "Amarok"         --> (doShift $ getWorkspace "misc")
+    , className     =? "VirtualBox"     --> (doShift $ getWorkspace "vm")
     , fmap ("NetBeans" `isInfixOf`) title --> (doShift $ getWorkspace "dev")
     , fmap ("VLC" `isInfixOf`) title    --> (doShift $ getWorkspace "float")
     , fmap ("VLC" `isInfixOf`) title    --> doFloat
-    , appName       =? "kcalc"          --> (doShift $ getWorkspace "float")
-    , appName       =? "kcalc"          --> doFloat
-    , className     =? "Kmix"           --> doFloat
-    , className     =? "Yakuake"        --> doIgnore
-    , className     =? "stalonetray"    --> doIgnore
-    , className     =? "Amarok"         --> (doShift $ getWorkspace "misc")
-    , className     =? "VirtualBox"     --> (doShift $ getWorkspace "vm")
     ]
 
+-- TODO: web -> Full, ff, chrome -> web, tabbed -> default
 myLayouts =   onWorkspace (getWorkspace "term")     tabs
             $ onWorkspace (getWorkspace "float")    simpleFloat
             $ onWorkspace (getWorkspace "dev")      (dev ||| (avoidStruts Full))
