@@ -17,32 +17,32 @@ import Data.List
 
 import System.IO
 
-shortcuts = spawnShortcuts 
+shortcuts = spawnShortcuts myApps
 
 myApps = ["&firefox", "k&calc", "&dolphin", "konsole -e &vim", "&opera", 
           "c&hromium-browser", "/opt/&netbeans-6.8/bin/netbeans", "&krusader",
           "&psi", "&amarok", "oo&writer", "k&3b", "&gimp", "&inkscape",
           "Virtual&Box"]
 
-marker m l = _marker m l [] where
-    _marker m (x:xs) acc | m == x       = ([head xs], acc ++ xs)
-                         | otherwise    = _marker m xs $ acc ++ [x]
+myWorkspaces = ["term", "web", "dev", "file", "doc", "misc", "chat", "vm", "float"]
 
-spawnShortcuts = [(_spawn . marker '&') x | x <- myApps] where
-    _spawn (m, app) = ("M-x " ++ m, spawn app)
 
--- TODO: make pretty
+-- TODO: make pretty, add gimp
 positioning = composeAll
-    [ className     =? "Firefox"        --> (doShift $ getWorkspace "web2")
+    [ className     =? "Firefox"        --> (doShift $ getWorkspace "web")
     , className     =? "Opera"          --> (doShift $ getWorkspace "web")
     , className     =? "Krusader"       --> (doShift $ getWorkspace "file")
-    , className     =? "Kcalc"          --> doFloat
-    , className     =? "Kmix"           --> doFloat
+    , className     =? "Psi"            --> (doShift $ getWorkspace "chat")
     , className     =? "Amarok"         --> (doShift $ getWorkspace "misc")
     , className     =? "VirtualBox"     --> (doShift $ getWorkspace "vm")
-    , fmap ("NetBeans" `isInfixOf`) title --> (doShift $ getWorkspace "dev")
+    , className     =? "Chromium-browser" --> (doShift $ getWorkspace "web")
+    , className     =? "Gimp"           --> (doShift $ getWorkspace "float")
+    , className     =? "Gimp"           --> doFloat
+    , className     =? "Kcalc"          --> doFloat
+    , className     =? "Kmix"           --> doFloat
     , fmap ("VLC" `isInfixOf`) title    --> (doShift $ getWorkspace "float")
     , fmap ("VLC" `isInfixOf`) title    --> doFloat
+    , fmap ("NetBeans" `isInfixOf`) title --> (doShift $ getWorkspace "dev")
     ]
 
 -- TODO: web -> Full, ff, chrome -> web, tabbed -> default
@@ -57,7 +57,6 @@ myLayouts =   onWorkspace (getWorkspace "term")     tabs
         dev     = avoidStruts $ Mirror $ ResizableTall 1 (3 % 100) (2 % 3) []
         imLayout = avoidStruts $ withIM (1 % 6) (Role "psimain") def
 
-myWorkspaces = ["term", "web", "dev", "file", "chat", "misc", "web2", "vm", "float"]
 
 -- if there is less then 9 workspaces, they will be filled with ""
 enumeratedWorkspaces = 
@@ -74,6 +73,12 @@ showWorkspaces =
 getWorkspace name = showWorkspace ws
     where ws = (name, fromMaybe 0 $ lookup name enumeratedWorkspaces)
 
+marker m l = _marker m l [] where
+    _marker m (x:xs) acc | m == x       = ([head xs], acc ++ xs)
+                         | otherwise    = _marker m xs $ acc ++ [x]
+
+spawnShortcuts l = [(_spawn . marker '&') x | x <- l] where
+    _spawn (m, app) = ("M-x " ++ m, spawn app)
 
 main = do
     xmproc <- spawnPipe "xmobar /home/luka/.xmonad/xmobarrc"
