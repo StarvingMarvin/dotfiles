@@ -10,6 +10,7 @@ import XMonad.Layout.SimpleFloat
 import XMonad.Layout.LayoutHints
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.IM
+import XMonad.Actions.WindowGo
 
 import Data.Ratio
 import Data.Maybe
@@ -32,7 +33,7 @@ positioning = composeAll
     [ className     =? "Firefox"        --> (doShift $ getWorkspace "web")
     , className     =? "Opera"          --> (doShift $ getWorkspace "web")
     , className     =? "Krusader"       --> (doShift $ getWorkspace "file")
-    , className     =? "Psi"            --> (doShift $ getWorkspace "chat")
+    , className     =? "psi"            --> (doShift $ getWorkspace "chat")
     , className     =? "Amarok"         --> (doShift $ getWorkspace "misc")
     , className     =? "VirtualBox"     --> (doShift $ getWorkspace "vm")
     , className     =? "Chromium-browser" --> (doShift $ getWorkspace "web")
@@ -45,17 +46,16 @@ positioning = composeAll
     , fmap ("NetBeans" `isInfixOf`) title --> (doShift $ getWorkspace "dev")
     ]
 
--- TODO: web -> Full, ff, chrome -> web, tabbed -> default
-myLayouts =   onWorkspace (getWorkspace "term")     tabs
-            $ onWorkspace (getWorkspace "float")    simpleFloat
-            $ onWorkspace (getWorkspace "dev")      (dev ||| (avoidStruts Full))
-            $ onWorkspace (getWorkspace "chat")     imLayout 
+myLayouts =   onWorkspace (getWorkspace "float")    simpleFloat
+            $ onWorkspace (getWorkspace "dev")      full
+            $ onWorkspace (getWorkspace "web")      full
+            $ onWorkspace (getWorkspace "chat")     imLayout
             $ def
     where
-        def     = (avoidStruts $ layoutHook defaultConfig )
         tabs    = (layoutHints $ avoidStruts $ tabbed shrinkText defaultTheme)
-        dev     = avoidStruts $ Mirror $ ResizableTall 1 (3 % 100) (2 % 3) []
+        def     = (avoidStruts $ tabs ||| layoutHook defaultConfig )
         imLayout = avoidStruts $ withIM (1 % 6) (Role "psimain") def
+        full    = avoidStruts Full
 
 
 -- if there is less then 9 workspaces, they will be filled with ""
