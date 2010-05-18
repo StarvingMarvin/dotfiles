@@ -11,6 +11,8 @@ import XMonad.Layout.LayoutHints
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.IM
 import XMonad.Actions.WindowGo
+import XMonad.Prompt
+import XMonad.Prompt.Shell
 
 import Data.Ratio
 import Data.Maybe
@@ -18,7 +20,7 @@ import Data.List
 
 import System.IO
 
-shortcuts = spawnShortcuts myApps
+shortcuts = spawnShortcuts myApps ++ [("M-p", shellPrompt defaultXPConfig)]
 
 myApps = ["&firefox", "k&calc", "&dolphin", "konsole -e &vim", "&opera", 
           "c&hromium-browser", "/opt/&netbeans-6.8/bin/netbeans", "&krusader",
