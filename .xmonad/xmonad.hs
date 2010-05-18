@@ -77,7 +77,7 @@ marker m l = _marker m l [] where
     _marker m (x:xs) acc | m == x       = ([head xs], acc ++ xs)
                          | otherwise    = _marker m xs $ acc ++ [x]
 
-spawnShortcuts l = [(_spawn . marker '&') x | x <- l] where
+spawnShortcuts l = map (_spawn . marker '&') l where
     _spawn (m, app) = ("M-x " ++ m, spawn app)
 
 main = do
