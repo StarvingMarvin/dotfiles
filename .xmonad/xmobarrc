@@ -1,16 +1,16 @@
-Config { font = "-*-terminus-*-r-*-*-12-*-*-*-*-*-*-*"
-       , bgColor = "black"
-       , fgColor = "grey"
+Config { font = "-*-terminus-*-r-*-*-12-*-*-*-*-*-*-u"
+       , bgColor = "#333333"
+       , fgColor = "#ddddcc"
        , position = TopW L 90
        , lowerOnStart = True
-       , commands = [ Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+       , commands = [ Run Cpu ["-L","3","-H","50","--normal","#55cc77","--high","#884444"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
-                    , Run Date "%a, %_d %b %l:%M" "date" 10
+                    , Run Date "%a, %_d %b %H:%M" "date" 10
                     , Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %cpu% | %memory% * %swap%    <fc=#ee9900>%date%</fc>"
+       , template = "%StdinReader% }{ %cpu% | %memory% * %swap%    <fc=#ffbb77>%date%</fc>"
        }
 

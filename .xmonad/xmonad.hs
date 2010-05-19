@@ -22,7 +22,7 @@ import System.IO
 
 shortcuts = spawnShortcuts myApps ++ [("M-p", shellPrompt defaultXPConfig)]
 
-myApps = ["&firefox", "k&calc", "&dolphin", "konsole -e &vim", "&opera", 
+myApps = ["&firefox", "k&calc", "&dolphin", "rxvt-unicode -e &vim", "&opera", 
           "c&hromium-browser", "/opt/&netbeans-6.8/bin/netbeans", "&krusader",
           "&psi", "&amarok", "oo&writer", "k&3b", "&gimp", "&inkscape",
           "Virtual&Box"]
@@ -58,6 +58,14 @@ myLayouts =   onWorkspace (getWorkspace "float")    simpleFloat
         imLayout = avoidStruts $ withIM (1 % 6) (Role "psimain") def
         full    = avoidStruts Full
 
+myXmobarPP = xmobarPP 
+    { ppUrgent      = xmobarColor "#55cc77" "" . wrap "*" "*"
+    , ppHidden      = xmobarColor "#ddddcc" ""
+    , ppCurrent     = xmobarColor "#ffbb77" "" . wrap "[" "]"
+    , ppVisible     = xmobarColor "#ddddcc" "" . wrap "(" ")"
+    , ppTitle       = xmobarColor "#88aaff" "" . shorten 100
+    , ppLayout      = \x -> ""
+    }
 
 -- if there is less then 9 workspaces, they will be filled with ""
 enumeratedWorkspaces = 
@@ -88,15 +96,11 @@ main = do
         { manageHook        = positioning <+> manageDocks <+> manageHook defaultConfig
         , startupHook       = setWMName "LG3D"
         , layoutHook        = myLayouts
-        , logHook           = dynamicLogWithPP $ xmobarPP
-            { ppOutput      = hPutStrLn xmproc
-            , ppUrgent      = xmobarColor "green" "" . wrap "*" "*"
-            , ppTitle       = xmobarColor "green" "" . shorten 100
-            , ppLayout      = \x -> ""
-            }
-        , workspaces = showWorkspaces
-        , terminal           = "konsole"
-        , normalBorderColor  = "#cccccc"
+        , logHook           = dynamicLogWithPP $ myXmobarPP
+            { ppOutput      = hPutStrLn xmproc }
+        , workspaces        = showWorkspaces
+        , terminal          = "rxvt-unicode"
+        , normalBorderColor = "#cccccc"
         , focusedBorderColor = "#778800" 
         , modMask = mod4Mask
         } `additionalKeysP` shortcuts

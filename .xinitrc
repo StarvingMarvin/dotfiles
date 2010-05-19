@@ -2,14 +2,14 @@
 #~/bin/wallpapers &
 xrandr --output DVI-0 --right-of VGA-0 &
 xsetroot -cursor_name left_ptr -solid black &
-trayer --edge top --align left --height 8 --widthtype request --expand true --SetPartialStrut true --transparent true --alpha 1 --tint 0x000000 --margin 1152&
+trayer --edge top --align left --height 8 --widthtype request --expand true --SetPartialStrut true --transparent true --alpha 1 --tint 0x333333 --margin 1152&
 start-pulseaudio-x11 &
 
 firefox &
 klipper &
 opera &
 psi &
-kmix &
+kmix --keepvisibility &
 
 exec xmonad 
 
