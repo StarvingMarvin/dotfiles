@@ -43,8 +43,7 @@ positioning = composeAll
     , className     =? "Gimp"           --> doFloat
     , className     =? "Kcalc"          --> doFloat
     , className     =? "Kmix"           --> doFloat
-    , fmap ("VLC" `isInfixOf`) title    --> (doShift $ getWorkspace "float")
-    , fmap ("VLC" `isInfixOf`) title    --> doFloat
+    , className     =? "Vlc"            --> doFloat
     , fmap ("NetBeans" `isInfixOf`) title --> (doShift $ getWorkspace "dev")
     ]
 
