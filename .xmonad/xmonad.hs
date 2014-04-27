@@ -58,7 +58,7 @@ getWorkspace name = showWorkspace ws
 
 
 main = do
-    xmproc <- spawnPipe "xmobar /home/luka/.xmonad/xmobarrc"
+    xmproc <- spawnPipe "/home/luka/.cabal/bin/xmobar /home/luka/.xmonad/xmobarrc"
 
     xmonad $ defaultConfig
         { manageHook         = positioning <+> manageDocks <+> manageHook defaultConfig
