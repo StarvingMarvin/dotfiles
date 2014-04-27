@@ -1,4 +1,3 @@
-
 !urxvt.termName:  rxvt-256color
 urxvt.loginShell:         true
 urxvt.scrollBar:         false
@@ -20,8 +19,8 @@ urxvt.cutchars:         `()'*<>[]{|}"
 URxvt*cutchars:         `"()'*<>[]{|}
 !
 ! Appearance
-#urxvt.font:    -*-terminus-medium-*-*-*-14-*-*-*-*-*-*-*
-#urxvt.boldFont: -*-terminus-bold-*-*-*-14-*-*-*-*-*-*-*
+#urxvt.font:    -*-terminus-medium-r-*-*-14-*-*-*-*-*-*-u
+#urxvt.boldFont: -*-terminus-bold-r-*-*-14-*-*-*-*-*-*-u
 !
 ! Cursor
 urxvt.cursorColor: #DCDCCC
